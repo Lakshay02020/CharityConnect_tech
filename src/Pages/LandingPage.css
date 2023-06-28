@@ -1,0 +1,62 @@
+.landing-page-container {
+    display: flex;
+    height: 100vh;
+}
+
+.photo-container {
+    width: 60%;
+}
+
+.photo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.content-container {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    color: #777;
+    text-align: center;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.btn {
+    background: #fff;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    color: #444;
+    cursor: pointer;
+    font-size: 1em;
+    border: 1px solid black;
+}
+
+.btn:hover {
+    color: #fff;
+    background-color: #444;
+}
