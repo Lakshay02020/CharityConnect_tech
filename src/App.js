@@ -20,6 +20,7 @@ import EventEdit from './NGOS/NgoProfile/EventsSlider/EventEdit';
 import LandingPage from './Pages/LandingPage';
 import NGOSignup from './Pages/NGOSignup';
 import NGOLogin from './Pages/NGOLogin';
+import Footer from './Footer/Footer';
 
 function App() {
 
@@ -102,6 +103,7 @@ function App() {
           <NgoProfile/> */}
           </Routes>
        </BrowserRouter>
+       <Footer/>
     </div>
   );
 }

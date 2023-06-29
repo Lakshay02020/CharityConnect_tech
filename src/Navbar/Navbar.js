@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom"
+import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
+import { TableFooter } from "@mui/material";
 
 const Navbar=()=>{
 
     return(
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="#">< VolunteerActivismIcon style={{fontSize: '46px'}}  /></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -35,12 +37,14 @@ const Navbar=()=>{
           <a class="nav-link active" aria-current="page" href="/Ngos">Posts</a>
         </li>
       </ul>
-      <form class="d-flex" role="search">
+      {/* <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
         <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
-      <button type="button" class="btn btn-info" style={{color:'whitesmoke',borderRadius:'3px'}}>find nearby NGOs</button>
+      </form> */}
+      <a href="/nearbyNGOs"><button type="button" class="btn btn-info" style={{borderRadius:'3px'}}>find nearby NGOs</button></a>
     </div>
+
+    <TableFooter/>
   </div>
 </nav>
     )

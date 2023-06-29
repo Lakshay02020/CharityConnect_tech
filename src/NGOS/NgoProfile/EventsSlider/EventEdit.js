@@ -1,50 +1,73 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import "./EventEdit.css"
 
 
-const EventEdit=()=>{
-    const {id}=useParams();
+const EventEdit = () => {
+    const { id } = useParams();
+    const history = useNavigate();
 
     const [data, setData] = useState(null);
     const [adress, setAdress] = useState('jsi');
     const [date, setDate] = useState('');
     const [name, setName] = useState('');
     const [time, setTime] = useState('');
-    const [description,setDescription]=useState('');
-   
+    const [description, setDescription] = useState('');
+
     console.log(name);
-        
- 
-    //   console.log(profile);
-     
-    const handleSubmit=async (event)=>{
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = async () => {
+        try {
+            const response = await fetch('http://localhost:5161/api/event');
+            const jsonData = await response.json();
+            const filter = jsonData.filter((event) => {
+                return event.id === id;
+            })
+            // setData(filter);
+            setName(filter[0].name);
+            setAdress(filter[0].adress);
+            setDate(filter[0].date);
+            setDescription(filter[0].description);
+            setTime(filter[0].time);
+        } catch (error) {
+            console.log('Error fetching data:', error);
+        }
+    };
+
+
+    console.log(data);
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
         console.log("uidi");
         // console.log({ name, description, email, website,contact,location });
 
-        let newItem={name:name,adress:adress,description:description,date: date, time:time}
-          
+        let newItem = { name: name, adress: adress, description: description, date: date, time: time }
+
         try {
-         
-          const response = await fetch(`http://localhost:5161/api/event/${id}`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newItem),
-          });
-         
-          
+
+            const response = await fetch(`http://localhost:5161/api/event/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newItem),
+            });
+
+            history('/Events')
         } catch (error) {
-          //setError('Error creating item');
-          console.log('Error fetching data:', error);
+            //setError('Error creating item');
+            console.log('Error fetching data:', error);
         }
     }
 
-  
 
-    return(
+
+    return (
         <form onSubmit={handleSubmit} className="signup-form">
 
             <h2>Edit</h2>
@@ -58,7 +81,7 @@ const EventEdit=()=>{
                     type="text"
 
                     onChange={(e) => setName(e.target.value)}
-                    // placeholder={profile[0].id}
+                    // placeholder={data[0].name}
                     value={name}
 
                 />
@@ -74,14 +97,14 @@ const EventEdit=()=>{
                     type="text"
 
                     onChange={(e) => setDescription(e.target.value)}
-                    // placeholder={profile[0].email}
+                    // placeholder={data[0].email}
                     value={description}
 
                 />
 
             </label>
 
-           
+
             <label>
 
                 <span>Loaction</span>

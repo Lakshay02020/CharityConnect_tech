@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
+import bcrypt from 'bcryptjs';
 import "./Login.css"
 
 export default function Login() {
+    const salt = bcrypt.genSaltSync(10);
     const history = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -34,7 +36,8 @@ export default function Login() {
         e.preventDefault();
 
         const x = data.filter((ngo) => {
-            return ngo.email === email && ngo.password === password  
+            const hashedPassword = bcrypt.hashSync(password, '$2a$10$CwTycUXWue0Thq9StjUM0u');
+            return ngo.email === email && ngo.password === hashedPassword;  
         });
         
         if (x.length > 0) { history('/home') } else { alert("data not found") };

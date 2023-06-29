@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import bcrypt from 'bcryptjs';
 import "./Signup.css"
 
 export default function Signup() {
+    const salt = bcrypt.genSaltSync(10);
     const history = useNavigate();
     const [data,setData]=useState("");
     const [name, setName] = useState("");
@@ -20,7 +22,8 @@ export default function Signup() {
 
         if (isPasswordValid(password)) {
             if (password === confirmPassword) {
-                let newItem = { name: name, email: email, password: password };
+                const hashedPassword = bcrypt.hashSync(password, '$2a$10$CwTycUXWue0Thq9StjUM0u');
+                let newItem = { name: name, email: email, password: hashedPassword };
                 try {
 
                     const response = await fetch(`http://localhost:5161/api/user`, {

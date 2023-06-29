@@ -1,9 +1,10 @@
 import { useState } from "react";
 import "./EventForm.css"
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 const EventForm=()=>{
 
   const {id}=useParams();
+  const history = useNavigate();
 
   const [data,setData]=useState(null);
   const [title, setTitle] = useState("");
@@ -28,9 +29,10 @@ const EventForm=()=>{
             },
             body: JSON.stringify(newItem),
           });
-          const createdItem = await response.json();
-          setData([...data, createdItem]);
+          // const createdItem = await response.json();
+          // setData([...data, createdItem]);
           
+          history(`/Ngos/${id}`);
         } catch (error) {
           //setError('Error creating item');
           console.log('Error fetching data:', error);

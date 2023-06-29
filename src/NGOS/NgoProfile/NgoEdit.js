@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import "./NgoEdit.css"
 
 
 const NgoEdit=()=>{
     const {id}=useParams();
+    const history = useNavigate();
 
     const [data, setData] = useState(null);
     const [name, setName] = useState('jsi');
@@ -13,8 +14,33 @@ const NgoEdit=()=>{
     const [website, setWebsite] = useState('');
     const [description,setDescription]=useState('');
     const [location,setLocation]=useState('');
+    const [password,setPassword]=useState('');
 
     console.log(name);
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = async () => {
+        try {
+            const response = await fetch('http://localhost:5161/api/ngo');
+            const jsonData = await response.json();
+            const filter = jsonData.filter((event) => {
+                return event.id === id;
+            })
+            // setData(filter);
+            setName(filter[0].name);
+            setContact(filter[0].contact);
+            setEmail(filter[0].email);
+            setWebsite(filter[0].website);
+            setDescription(filter[0].description);
+            setLocation(filter[0].location);
+            setPassword(filter[0].password);
+        } catch (error) {
+            console.log('Error fetching data:', error);
+        }
+    };
         
  
     //   console.log(profile);
@@ -24,7 +50,7 @@ const NgoEdit=()=>{
         console.log("uidi");
         console.log({ name, description, email, website,contact,location });
 
-        let newItem={name:name,description:description,location:location,email: email, contact:contact,website:website}
+        let newItem={name:name,description:description,location:location,email: email, contact:contact,website:website,password:password}
           
         try {
          
@@ -36,7 +62,7 @@ const NgoEdit=()=>{
             body: JSON.stringify(newItem),
           });
          
-          
+          history(`/Ngos/${id}`)
         } catch (error) {
           //setError('Error creating item');
           console.log('Error fetching data:', error);

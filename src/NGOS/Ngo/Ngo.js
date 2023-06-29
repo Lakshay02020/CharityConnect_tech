@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react"
 import image from './tesla.jpg'
 import { useParams } from "react-router-dom"
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 
 const Ngo = (props) => {
     
@@ -22,7 +24,7 @@ const Ngo = (props) => {
             </div>
 
             <div className="card-body" >
-                <h5 className="card-title">{props.ngo.name} asha</h5>
+                <h5 className="card-title" style={{textTransform:'uppercase'}}>{props.ngo.name}</h5>
                 {/* <p className="card-text" style={{ display: 'flex', width: '100%', flexWrap: 'wrap', justifyContent: 'center' }}>
                     {props.ngo.tags.map((tag, index) => (
 
@@ -47,9 +49,11 @@ const Ngo = (props) => {
                         margin: '0px 16px',
                         background: '#bffbf5',
                         color: '#002285',
-                    }}> members</div>
+                        fontSize: '15px'
+                    }}>{props.ngo.members} <PeopleAltIcon style={{fontSize: '18px',
+                    marginTop: '-2px'}}/></div>
 
-                    <div className="btn btn-primary" style={{
+                    <a href={props.ngo.website}><div className="btn btn-primary" style={{
                         width: '5.5rem',
                         height: 'fit-content',
                         color: '#002285',
@@ -59,7 +63,8 @@ const Ngo = (props) => {
                         padding: '2px 10px',
                         fontWeight: 'unset',
                         margin: '0px 16px'
-                    }}>visit</div>
+                    }}>visit  <VisibilityIcon style={{fontSize: '18px',
+                        marginTop: '-2px'}}/></div></a>
                 </div>
             </div>
         </div>

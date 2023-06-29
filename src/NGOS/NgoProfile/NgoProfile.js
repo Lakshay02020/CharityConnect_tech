@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import EventSlider from "./EventsSlider/EventSlider"
 import Header from "./Header/header"
 import { useEffect, useState } from "react";
+import Donations from "./EventsSlider/Donations";
 
 const NgoProfile=(props)=>{
 
@@ -50,24 +51,42 @@ const NgoProfile=(props)=>{
     
     return(
         <div>
-            <div>
-                <Header id={id}/>
+            <div className="header" style={{display:'flex'}}>
+                <Header id={id} name={profile[0].name} disc={profile[0].description} email={profile[0].email}/>
             </div>
             <div>
-                <div>
-                  {type==="ngo"?  <div>Events </div>: <div>Events  user</div>}
+                <div style={{display: 'flex',marginTop: '44px'}}>
+                  <div style={{fontSize: 'xx-large',
+    fontWeight: '400',
+    marginLeft: '114px'}}>EVENTS </div>
                  
                   
-                  <Link to={`/Ngos/AddEvent/${profile[0].id}`}><a href="">Add event</a></Link>
+                  <Link to={`/Ngos/AddEvent/${profile[0].id}`}><button type="button" class="btn btn-info" style={{marginLeft: '240px',
+    
+    background: '#bffbf5',
+    color: '#002285',
+    position:'absolute',
+    right:'55px',
+    border: 'none'}}>ADD EVENT</button></Link>
                 </div>
                 <EventSlider id={id}/>
             </div>
-            <div>
-                {profile[0].id}
-            </div>
-            <div>
-                Users
-            </div>
+
+         <div style={{display: 'flex',marginTop: '44px'}}>
+            <div style={{fontSize: 'xx-large',
+    fontWeight: '400',
+    marginLeft: '114px'}}>DONATIONS </div>
+            <Link to={`/Ngos/AddEvent/${profile[0].id}`}><button type="button" class="btn btn-info" style={{marginLeft: '240px',
+    
+    background: '#bffbf5',
+    color: '#002285',
+    position:'absolute',
+    right:'55px',
+    border: 'none'}}>DONATE</button></Link>
+        </div>
+
+            <Donations id={id}/>
+            
         </div>
     )
 }

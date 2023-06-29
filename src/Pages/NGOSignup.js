@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import bcrypt from 'bcryptjs';
 import "./NGOSignup.css"
 import { Description } from "@mui/icons-material";
 
 export default function NGOSignup() {
     const history = useNavigate();
+    const salt = bcrypt.genSaltSync(10);
     const [data,setData]=useState("");
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -25,7 +27,8 @@ export default function NGOSignup() {
         if (isPasswordValid(password)) {
             if (password === confirmPassword) {
                 console.log(name,email,contactNumber,location,website,password);
-                let newItem = { name: name, email: email, contact: contactNumber,description:"hdjd", location: location, website: website, password: password };
+                const hashedPassword = bcrypt.hashSync(password, '$2a$10$CwTycUXWue0Thq9StjUM0u');
+                let newItem = { name: name, email: email, contact: contactNumber,description:"hdjd", location: location, website: website, password: hashedPassword };
                 try {
 
                     const response = await fetch(`http://localhost:5161/api/ngo`, {
